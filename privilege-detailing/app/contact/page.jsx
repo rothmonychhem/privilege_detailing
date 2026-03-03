@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 
-const CAR_TYPES = ["Sedan", "Coupe", "Hatchback", "SUV", "Truck", "Van", "Other"];
-
 export default function ContactPage() {
   const [status, setStatus] = useState("");
 
@@ -37,7 +35,7 @@ export default function ContactPage() {
       </p>
 
       <form onSubmit={onSubmit} className="mt-8 grid gap-4">
-        {/* Honeypot anti-spam (keep hidden) */}
+        {/* Honeypot anti-spam */}
         <input name="company" tabIndex={-1} autoComplete="off" className="hidden" />
 
         <div className="grid gap-4 md:grid-cols-2">
@@ -58,29 +56,16 @@ export default function ContactPage() {
           </Field>
         </div>
 
-        {/* Preferred contact method dropdown */}
-        <div className="grid gap-4 md:grid-cols-2">
-          <Field label="Preferred method of contact">
-            <select name="preferredContact" required className="input">
-              <option value="">Choose…</option>
-              <option value="Email">Email</option>
-              <option value="Phone">Phone</option>
-            </select>
-          </Field>
+        {/* Preferred contact method */}
+        <Field label="Preferred method of contact">
+          <select name="preferredContact" required className="input">
+            <option value="">Choose…</option>
+            <option value="Email">Email</option>
+            <option value="Phone">Phone</option>
+          </select>
+        </Field>
 
-          <Field label="Type of car">
-            <select name="carType" required className="input">
-              <option value="">Select type…</option>
-              {CAR_TYPES.map((t) => (
-                <option key={t} value={t}>
-                  {t}
-                </option>
-              ))}
-            </select>
-          </Field>
-        </div>
-
-        {/* Optional brand + model text inputs */}
+        {/* Optional brand + model */}
         <div className="grid gap-4 md:grid-cols-2">
           <Field label="Car brand (optional)">
             <input
@@ -99,13 +84,13 @@ export default function ContactPage() {
           </Field>
         </div>
 
-        {/* Checkbox: more than one car */}
+        {/* Checkbox */}
         <label className="flex items-center gap-3 text-sm text-zinc-700">
           <input type="checkbox" name="moreThanOneCar" value="yes" className="h-4 w-4" />
           More than one car
         </label>
 
-        {/* Comments / specs */}
+        {/* Comments */}
         <Field label="Comments / specifications">
           <textarea
             name="message"
@@ -133,20 +118,43 @@ export default function ContactPage() {
         {status && <p className="text-sm text-zinc-700">{status}</p>}
       </form>
 
-      {/* Minimal input styling */}
       <style jsx global>{`
-        .input {
-          width: 100%;
-          border: 1px solid rgb(228 228 231);
-          border-radius: 16px;
-          padding: 12px 14px;
-          outline: none;
-        }
-        .input:focus {
-          border-color: rgb(24 24 27);
-          box-shadow: 0 0 0 3px rgb(24 24 27 / 10%);
-        }
-      `}</style>
+  body {
+    background-color: #0a0a0a;
+    color: #f4f4f5;
+  }
+
+  .input {
+    width: 100%;
+    background-color: #18181b;   /* dark input background */
+    color: #f4f4f5;              /* visible white text */
+    border: 1px solid #27272a;
+    border-radius: 16px;
+    padding: 12px 14px;
+    outline: none;
+  }
+
+  .input::placeholder {
+    color: #a1a1aa;              /* softer gray placeholder */
+  }
+
+  .input:focus {
+    border-color: #3f3f46;
+    box-shadow: 0 0 0 3px rgba(63, 63, 70, 0.4);
+  }
+
+  select.input {
+    color: #f4f4f5;
+  }
+
+  textarea.input {
+    color: #f4f4f5;
+  }
+
+  label {
+    color: #e4e4e7;
+  }
+`}</style>
     </main>
   );
 }

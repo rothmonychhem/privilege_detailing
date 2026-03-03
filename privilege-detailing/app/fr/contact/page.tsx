@@ -1,75 +1,73 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function ContactPage() {
-  const [status, setStatus] = useState("");
+export default function ContactFR() {
+  const [status, setStatus] = useState<string>("");
   const router = useRouter();
 
-async function onSubmit(e) {
-  e.preventDefault();
-  setStatus("Sending...");
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("Envoi en cours...");
 
-  const formEl = e.currentTarget; // ✅ store it now (before await)
-  const form = new FormData(formEl);
-  const payload = Object.fromEntries(form.entries());
+    const formEl = e.currentTarget; // important: capture before await
+    const form = new FormData(formEl);
+    const payload = Object.fromEntries(form.entries());
 
-  const res = await fetch("/api/contact", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
-  if (res.ok) {
-    formEl.reset();              // ✅ use stored element
-    router.push("/thank-you");
-    return;
+    if (res.ok) {
+      formEl.reset();
+      router.push("/fr/merci");
+      return;
+    }
+
+    const text = await res.text();
+    setStatus("Erreur ❌ " + text);
   }
-
-  const text = await res.text();
-  setStatus("Error ❌ " + text);
-}
 
   return (
     <main className="min-h-screen bg-zinc-950 text-zinc-100 px-4 py-12">
       <div className="mx-auto max-w-3xl">
-
         <h1 className="text-3xl font-semibold tracking-tight">
-          Contact Privilege Auto Detailing
+          Contact — Privilege Auto Detailing
         </h1>
 
         <p className="mt-3 text-zinc-400">
-          Request a quote for mobile detailing in Laval & the Greater Montréal region.
+          Demandez une soumission pour un service d’esthétique mobile à Laval et dans le Grand Montréal.
         </p>
 
         <form onSubmit={onSubmit} className="mt-8 grid gap-6">
-
-          {/* Honeypot anti-spam */}
+          {/* Anti-spam (honeypot) */}
           <input name="company" tabIndex={-1} autoComplete="off" className="hidden" />
 
           <div className="grid gap-6 md:grid-cols-2">
-            <Field label="First name">
-              <input name="firstName" required className="input" placeholder="John" />
+            <Field label="Prénom">
+              <input name="firstName" required className="input" placeholder="Jean" />
             </Field>
 
-            <Field label="Last name">
-              <input name="lastName" required className="input" placeholder="Doe" />
+            <Field label="Nom">
+              <input name="lastName" required className="input" placeholder="Dupont" />
             </Field>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2">
-            <Field label="Email">
+            <Field label="Courriel">
               <input
                 name="email"
                 type="email"
                 required
                 className="input"
-                placeholder="john@email.com"
+                placeholder="jean@email.com"
               />
             </Field>
 
-            <Field label="Phone">
+            <Field label="Téléphone">
               <input
                 name="phone"
                 inputMode="tel"
@@ -79,29 +77,21 @@ async function onSubmit(e) {
             </Field>
           </div>
 
-          <Field label="Preferred method of contact">
+          <Field label="Méthode de contact préférée">
             <select name="preferredContact" required className="input">
-              <option value="">Choose…</option>
-              <option value="Email">Email</option>
-              <option value="Phone">Phone</option>
+              <option value="">Choisir…</option>
+              <option value="Email">Courriel</option>
+              <option value="Phone">Téléphone</option>
             </select>
           </Field>
 
           <div className="grid gap-6 md:grid-cols-2">
-            <Field label="Car brand (optional)">
-              <input
-                name="carBrand"
-                className="input"
-                placeholder="e.g., Toyota"
-              />
+            <Field label="Marque du véhicule (optionnel)">
+              <input name="carBrand" className="input" placeholder="ex.: Toyota" />
             </Field>
 
-            <Field label="Car model (optional)">
-              <input
-                name="carModel"
-                className="input"
-                placeholder="e.g., Camry 2020"
-              />
+            <Field label="Modèle du véhicule (optionnel)">
+              <input name="carModel" className="input" placeholder="ex.: Camry 2020" />
             </Field>
           </div>
 
@@ -112,22 +102,22 @@ async function onSubmit(e) {
               value="yes"
               className="h-4 w-4 accent-zinc-300"
             />
-            More than one car
+            Plus d’un véhicule
           </label>
 
-          <Field label="Comments / specifications">
+          <Field label="Commentaires / spécifications">
             <textarea
               name="message"
               required
               rows={7}
               className="input"
               placeholder={
-                "Tell us what you want done and any details:\n" +
-                "• Interior / Exterior / Full detail\n" +
-                "• Location (city/area)\n" +
-                "• Preferred date & time\n" +
-                "• Vehicle condition (pet hair, stains, salt, odor, etc.)\n" +
-                "• Any special requests (wax, polish, deep shampoo, etc.)"
+                "Décrivez ce que vous voulez et les détails :\n" +
+                "• Intérieur / Extérieur / Full detail\n" +
+                "• Localisation (ville/secteur)\n" +
+                "• Date & heure souhaitées\n" +
+                "• État du véhicule (poils d’animaux, taches, sel, odeur, etc.)\n" +
+                "• Demandes spéciales (cire, polissage, shampooing, etc.)"
               }
             />
           </Field>
@@ -136,13 +126,10 @@ async function onSubmit(e) {
             type="submit"
             className="rounded-2xl bg-white text-zinc-900 py-3 text-sm font-medium hover:bg-zinc-200 transition"
           >
-            Send Request
+            Envoyer la demande
           </button>
 
-          {status && (
-            <p className="text-sm text-zinc-400">{status}</p>
-          )}
-
+          {status && <p className="text-sm text-zinc-400">{status}</p>}
         </form>
       </div>
 
@@ -156,29 +143,25 @@ async function onSubmit(e) {
           padding: 12px 14px;
           outline: none;
         }
-
         .input::placeholder {
           color: #71717a;
         }
-
         .input:focus {
           border-color: #3f3f46;
           box-shadow: 0 0 0 3px rgba(63, 63, 70, 0.4);
-        }
-
-        select.input {
-          color: #f4f4f5;
-        }
-
-        textarea.input {
-          color: #f4f4f5;
         }
       `}</style>
     </main>
   );
 }
 
-function Field({ label, children }) {
+function Field({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="grid gap-2">
       <div className="text-sm font-medium text-zinc-200">{label}</div>

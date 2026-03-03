@@ -1,65 +1,171 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Zap, DollarSign, ShieldCheck } from "lucide-react";
+import ServiceSlideshow from "../components/ServiceSlideshow";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="min-h-screen bg-zinc-950 text-zinc-100">
+      {/* HERO */}
+      <section className="mx-auto max-w-6xl px-4 pt-14 pb-10">
+        <div className="grid gap-8 md:grid-cols-2 md:items-center">
+          {/* Left */}
+          <div>
+            <p className="text-sm text-zinc-400">
+              Mobile detailing • Laval & Greater Montréal
+            </p>
+
+            <h1 className="mt-3 text-4xl md:text-5xl font-semibold tracking-tight">
+              Quick, affordable, reliable detailing — right at your doorstep.
+            </h1>
+
+            <p className="mt-4 text-zinc-300 leading-relaxed">
+              We come to you. From daily drivers to SUVs and luxury vehicles, we
+              deliver a clean you can feel — fast booking, transparent pricing,
+              and professional results.
+            </p>
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium bg-white text-zinc-900 hover:bg-zinc-200 transition"
+              >
+                Get a quote
+              </Link>
+
+              <a
+                href="#services"
+                className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium border border-zinc-700 text-zinc-100 hover:bg-zinc-900 transition"
+              >
+                View services
+              </a>
+            </div>
+
+            {/* ICON CARDS */}
+            <div className="mt-8 grid gap-4 sm:grid-cols-3 text-sm">
+              <FeatureCard
+                title="Quick"
+                subtitle="Fast turnaround"
+                icon={<Zap className="h-5 w-5 text-yellow-400" />}
+              />
+              <FeatureCard
+                title="Affordable"
+                subtitle="Fair pricing"
+                icon={<DollarSign className="h-5 w-5 text-green-400" />}
+              />
+              <FeatureCard
+                title="Reliable"
+                subtitle="On-time service"
+                icon={<ShieldCheck className="h-5 w-5 text-blue-400" />}
+              />
+            </div>
+          </div>
+
+          {/* Right */}
+          <div className="rounded-3xl border border-zinc-800 bg-zinc-900/40 p-6">
+            <div className="rounded-2xl bg-zinc-950 border border-zinc-800 p-6">
+              <div className="text-sm text-zinc-400">On-call service</div>
+              <div className="mt-2 text-2xl font-semibold tracking-tight">
+                Interior & Exterior packages
+              </div>
+              <div className="mt-3 text-zinc-300">
+                We service sedans, coupes, SUVs, trucks, and more.
+              </div>
+
+              <div className="mt-6 grid gap-3">
+                <ProofPoint text="Laval + surrounding areas" />
+                <ProofPoint text="Greater Montréal region" />
+                <ProofPoint text="Flexible scheduling" />
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* SLIDESHOW */}
+      <ServiceSlideshow />
+
+      {/* SERVICES */}
+      <section id="services" className="mx-auto max-w-6xl px-4 py-10">
+        <h2 className="text-2xl font-semibold tracking-tight">Services</h2>
+        <p className="mt-2 text-zinc-400">
+          Choose a package or request a custom quote.
+        </p>
+
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <ServiceCard
+            title="Interior Refresh"
+            points={["Vacuum + wipe-down", "Windows", "Light stain treatment"]}
+          />
+          <ServiceCard
+            title="Exterior Clean"
+            points={["Hand wash", "Wheels + tires", "Dry + shine"]}
+          />
+          <ServiceCard
+            title="Full Detail"
+            points={["Interior deep clean", "Exterior wash", "Premium finish"]}
+          />
         </div>
-      </main>
+      </section>
+
+      {/* CTA */}
+      <section className="mx-auto max-w-6xl px-4 pb-16">
+        <div className="rounded-3xl border border-zinc-800 bg-white text-zinc-900 p-8 md:p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div>
+            <h3 className="text-2xl font-semibold tracking-tight">Ready to book?</h3>
+            <p className="mt-2 text-zinc-700">
+              Tell us your vehicle and preferred contact method. We’ll reply fast.
+            </p>
+          </div>
+
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium bg-zinc-900 text-white hover:bg-zinc-800 transition"
+          >
+            Contact us
+          </Link>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function FeatureCard({
+  title,
+  subtitle,
+  icon,
+}: {
+  title: string;
+  subtitle: string;
+  icon: React.ReactNode;
+}) {
+  return (
+    <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-4 flex items-start gap-3 hover:bg-zinc-900/70 transition">
+      <div className="p-2 rounded-xl bg-zinc-800">{icon}</div>
+      <div>
+        <div className="font-semibold">{title}</div>
+        <div className="text-zinc-400 mt-1">{subtitle}</div>
+      </div>
+    </div>
+  );
+}
+
+function ProofPoint({ text }: { text: string }) {
+  return (
+    <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4 text-sm">
+      ✅ {text}
+    </div>
+  );
+}
+
+function ServiceCard({ title, points }: { title: string; points: string[] }) {
+  return (
+    <div className="rounded-3xl border border-zinc-800 bg-zinc-900/40 p-6">
+      <div className="font-semibold text-lg">{title}</div>
+      <ul className="mt-3 space-y-2 text-sm text-zinc-300">
+        {points.map((p) => (
+          <li key={p}>• {p}</li>
+        ))}
+      </ul>
     </div>
   );
 }

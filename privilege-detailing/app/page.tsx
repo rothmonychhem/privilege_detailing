@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Zap, DollarSign, ShieldCheck } from "lucide-react";
 import ServiceSlideshow from "../components/ServiceSlideshow";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export default function HomePage() {
   return (
@@ -125,6 +126,7 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
+       <SpeedInsights/>
     </main>
   );
 }

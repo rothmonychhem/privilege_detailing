@@ -8,10 +8,12 @@ export async function POST(req) {
   try {
     const body = await req.json();
 
-    // Honeypot anti-spam
+    // Anti-spam honeypot
     if (body.company) {
       return new Response("Spam detected.", { status: 400 });
     }
+
+    const lang = clean(body.lang).toLowerCase() === "fr" ? "fr" : "en";
 
     const firstName = clean(body.firstName);
     const lastName = clean(body.lastName);
@@ -27,36 +29,82 @@ export async function POST(req) {
       return new Response("Missing required fields.", { status: 400 });
     }
 
-    const resend = new Resend(process.env.RESEND_API_KEY);
-
-    // NOTE: FROM_EMAIL must be a sender you've verified in Resend (domain/email)
+    const apiKey = process.env.RESEND_API_KEY;
     const from = process.env.FROM_EMAIL;
-    const to = "rothmony.chhem@gmail.com";
+    const to = process.env.TO_EMAIL;
 
-    const subject = `New detailing request — ${firstName} ${lastName}`;
+    if (!apiKey) {
+      return new Response("Missing RESEND_API_KEY", { status: 500 });
+    }
+
+    if (!from) {
+      return new Response("Missing FROM_EMAIL", { status: 500 });
+    }
+
+    if (!to) {
+      return new Response("Missing TO_EMAIL", { status: 500 });
+    }
+
+    const resend = new Resend(apiKey);
+
+    const subject =
+      lang === "fr"
+        ? `Nouvelle demande d’esthétique — ${firstName} ${lastName}`
+        : `New detailing request — ${firstName} ${lastName}`;
 
     const text =
-      `New Detailing Request\n` +
-      `---------------------\n` +
-      `Name: ${firstName} ${lastName}\n` +
-      `Preferred contact: ${preferredContact}\n` +
-      `Email: ${email}\n` +
-      `Phone: ${phone || "(not provided)"}\n` +
-      `Car brand: ${carBrand || "(not provided)"}\n` +
-      `Car model: ${carModel || "(not provided)"}\n` +
-      `More than one car: ${moreThanOneCar}\n\n` +
-      `Comments / specifications:\n${message}\n`;
+      lang === "fr"
+        ? [
+            "Nouvelle demande d’esthétique",
+            "-----------------------------",
+            `Nom: ${firstName} ${lastName}`,
+            `Méthode de contact préférée: ${
+              preferredContact === "Phone" ? "Téléphone" : "Courriel"
+            }`,
+            `Courriel: ${email}`,
+            `Téléphone: ${phone || "(non fourni)"}`,
+            `Marque du véhicule: ${carBrand || "(non fournie)"}`,
+            `Modèle du véhicule: ${carModel || "(non fourni)"}`,
+            `Plus d’un véhicule: ${moreThanOneCar === "Yes" ? "Oui" : "Non"}`,
+            "",
+            `Commentaires / spécifications:`,
+            message,
+            "",
+          ].join("\n")
+        : [
+            "New Detailing Request",
+            "---------------------",
+            `Name: ${firstName} ${lastName}`,
+            `Preferred contact: ${preferredContact}`,
+            `Email: ${email}`,
+            `Phone: ${phone || "(not provided)"}`,
+            `Car brand: ${carBrand || "(not provided)"}`,
+            `Car model: ${carModel || "(not provided)"}`,
+            `More than one car: ${moreThanOneCar}`,
+            "",
+            `Comments / specifications:`,
+            message,
+            "",
+          ].join("\n");
 
-    await resend.emails.send({
+    const { error } = await resend.emails.send({
       from,
       to,
       subject,
-      replyTo: email, // so you can reply directly
+      replyTo: email,
       text,
     });
 
+    if (error) {
+      return new Response(`Resend error: ${error.message || "Unknown error"}`, {
+        status: 500,
+      });
+    }
+
     return new Response("OK", { status: 200 });
   } catch (err) {
-    return new Response("Server error.", { status: 500 });
+    return new Response(`Server error: ${err?.message || "Unknown error"}`, {
+      status: 500,
+    });
   }
 }

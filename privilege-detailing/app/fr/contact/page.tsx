@@ -11,7 +11,7 @@ export default function ContactFR() {
     e.preventDefault();
     setStatus("Envoi en cours...");
 
-    const formEl = e.currentTarget; // important: capture before await
+    const formEl = e.currentTarget;
     const form = new FormData(formEl);
     const payload = Object.fromEntries(form.entries());
 
@@ -43,16 +43,29 @@ export default function ContactFR() {
         </p>
 
         <form onSubmit={onSubmit} className="mt-8 grid gap-6">
-          {/* Anti-spam (honeypot) */}
+          {/* Anti-spam */}
           <input name="company" tabIndex={-1} autoComplete="off" className="hidden" />
+
+          {/* Language marker */}
+          <input type="hidden" name="lang" value="fr" />
 
           <div className="grid gap-6 md:grid-cols-2">
             <Field label="Prénom">
-              <input name="firstName" required className="input" placeholder="Jean" />
+              <input
+                name="firstName"
+                required
+                className="input"
+                placeholder="Jean"
+              />
             </Field>
 
             <Field label="Nom">
-              <input name="lastName" required className="input" placeholder="Dupont" />
+              <input
+                name="lastName"
+                required
+                className="input"
+                placeholder="Dupont"
+              />
             </Field>
           </div>
 
@@ -87,11 +100,19 @@ export default function ContactFR() {
 
           <div className="grid gap-6 md:grid-cols-2">
             <Field label="Marque du véhicule (optionnel)">
-              <input name="carBrand" className="input" placeholder="ex.: Toyota" />
+              <input
+                name="carBrand"
+                className="input"
+                placeholder="ex. : Toyota"
+              />
             </Field>
 
             <Field label="Modèle du véhicule (optionnel)">
-              <input name="carModel" className="input" placeholder="ex.: Camry 2020" />
+              <input
+                name="carModel"
+                className="input"
+                placeholder="ex. : Camry 2020"
+              />
             </Field>
           </div>
 
@@ -115,9 +136,9 @@ export default function ContactFR() {
                 "Décrivez ce que vous voulez et les détails :\n" +
                 "• Intérieur / Extérieur / Full detail\n" +
                 "• Localisation (ville/secteur)\n" +
-                "• Date & heure souhaitées\n" +
+                "• Date et heure souhaitées\n" +
                 "• État du véhicule (poils d’animaux, taches, sel, odeur, etc.)\n" +
-                "• Demandes spéciales (cire, polissage, shampooing, etc.)"
+                "• Demandes spéciales (cire, polissage, shampoing, etc.)"
               }
             />
           </Field>
@@ -143,9 +164,11 @@ export default function ContactFR() {
           padding: 12px 14px;
           outline: none;
         }
+
         .input::placeholder {
           color: #71717a;
         }
+
         .input:focus {
           border-color: #3f3f46;
           box-shadow: 0 0 0 3px rgba(63, 63, 70, 0.4);

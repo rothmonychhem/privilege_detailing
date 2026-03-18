@@ -47,6 +47,9 @@ async function onSubmit(e) {
 
           {/* Honeypot anti-spam */}
           <input name="company" tabIndex={-1} autoComplete="off" className="hidden" />
+          
+          {/* Language marker */}
+          <input type="hidden" name="lang" value="en" />
 
           <div className="grid gap-6 md:grid-cols-2">
             <Field label="First name">

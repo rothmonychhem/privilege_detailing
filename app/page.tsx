@@ -12,11 +12,11 @@ export default function HomePage() {
           {/* Left */}
           <div>
             <p className="text-sm text-zinc-400">
-              Mobile detailing • Laval & Greater Montréal
+              Mobile Mechanic & Detailing • Montreal • Brossard • Longeuil • Laval • Boucherville
             </p>
 
             <h1 className="mt-3 text-4xl md:text-5xl font-semibold tracking-tight">
-              Quick, affordable, reliable detailing — right at your doorstep.
+              Quick, affordable, reliable detailing and mechanical services — right at your doorstep.
             </h1>
 
             <p className="mt-4 text-zinc-300 leading-relaxed">
@@ -25,21 +25,21 @@ export default function HomePage() {
               and professional results.
             </p>
 
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium bg-white text-zinc-900 hover:bg-zinc-200 transition"
-              >
-                Get a quote
-              </Link>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium bg-white text-zinc-900 hover:bg-zinc-200 transition"
+                >
+                  Contact us
+                </Link>
 
-              <a
-                href="#services"
-                className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium border border-zinc-700 text-zinc-100 hover:bg-zinc-900 transition"
-              >
-                View services
-              </a>
-            </div>
+                <Link
+                  href="/pricing"
+                  className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium border border-zinc-700 text-zinc-100 hover:bg-zinc-900 transition"
+                >
+                  View Services and Prices
+                </Link>
+              </div>
 
             {/* ICON CARDS */}
             <div className="mt-8 grid gap-4 sm:grid-cols-3 text-sm">

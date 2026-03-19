@@ -24,21 +24,21 @@ export default function HomeFR() {
               prise de rendez-vous rapide et prix transparents.
             </p>
 
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                href="/fr/contact"
-                className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium bg-white text-zinc-900 hover:bg-zinc-200 transition"
-              >
-                Obtenir un prix
-              </Link>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link
+                  href="/fr/contact"
+                  className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium bg-white text-zinc-900 hover:bg-zinc-200 transition"
+                >
+                  Contactez-nous
+                </Link>
 
-              <a
-                href="#services"
-                className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium border border-zinc-700 text-zinc-100 hover:bg-zinc-900 transition"
-              >
-                Voir les services
-              </a>
-            </div>
+                <Link
+                  href="/fr/pricing"
+                  className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium border border-zinc-700 text-zinc-100 hover:bg-zinc-900 transition"
+                >
+                  Voir les Services & Prix
+                </Link>
+              </div>
 
             {/* ICON CARDS */}
             <div className="mt-8 grid gap-4 sm:grid-cols-3 text-sm">

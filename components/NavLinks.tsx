@@ -13,7 +13,7 @@ export default function NavLinks() {
   const contactHref = isFR ? "/fr/contact" : "/contact";
 
   return (
-    <nav className="flex items-center gap-4 text-sm text-zinc-200">
+    <nav className="flex items-center gap-4 text-sm text-white/90">
       <Link className="hover:text-white" href={homeHref}>
         {isFR ? "Accueil" : "Home"}
       </Link>

@@ -1,14 +1,64 @@
 import { Resend } from "resend";
 
-function clean(v) {
-  return String(v ?? "").trim();
+function clean(value) {
+  return String(value ?? "").trim();
+}
+
+function normalizeServiceInterest(value) {
+  const normalized = clean(value).toLowerCase();
+
+  if (["detailing", "mechanic", "both"].includes(normalized)) {
+    return normalized;
+  }
+
+  return "";
+}
+
+function getServiceInterestLabel(lang, serviceInterest) {
+  const labels =
+    lang === "fr"
+      ? {
+          detailing: "Esthétique",
+          mechanic: "Mécanique",
+          both: "Esthétique et mécanique",
+        }
+      : {
+          detailing: "Detailing",
+          mechanic: "Mechanic",
+          both: "Detailing and mechanic",
+        };
+
+  return labels[serviceInterest] || "";
+}
+
+function getSubject(lang, serviceInterest, fullName) {
+  if (lang === "fr") {
+    if (serviceInterest === "detailing") {
+      return `Nouvelle demande d'esthétique — ${fullName}`;
+    }
+
+    if (serviceInterest === "mechanic") {
+      return `Nouvelle demande de mécanique — ${fullName}`;
+    }
+
+    return `Nouvelle demande de service — ${fullName}`;
+  }
+
+  if (serviceInterest === "detailing") {
+    return `New detailing request — ${fullName}`;
+  }
+
+  if (serviceInterest === "mechanic") {
+    return `New mechanic request — ${fullName}`;
+  }
+
+  return `New service request — ${fullName}`;
 }
 
 export async function POST(req) {
   try {
     const body = await req.json();
 
-    // Anti-spam honeypot
     if (body.company) {
       return new Response("Spam detected.", { status: 400 });
     }
@@ -19,13 +69,21 @@ export async function POST(req) {
     const lastName = clean(body.lastName);
     const email = clean(body.email);
     const phone = clean(body.phone);
+    const serviceInterest = normalizeServiceInterest(body.serviceInterest);
     const preferredContact = clean(body.preferredContact);
     const carBrand = clean(body.carBrand);
     const carModel = clean(body.carModel);
     const moreThanOneCar = body.moreThanOneCar === "yes" ? "Yes" : "No";
     const message = clean(body.message);
 
-    if (!firstName || !lastName || !email || !preferredContact || !message) {
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !serviceInterest ||
+      !preferredContact ||
+      !message
+    ) {
       return new Response("Missing required fields.", { status: 400 });
     }
 
@@ -46,18 +104,17 @@ export async function POST(req) {
     }
 
     const resend = new Resend(apiKey);
-
-    const subject =
-      lang === "fr"
-        ? `Nouvelle demande d’esthétique — ${firstName} ${lastName}`
-        : `New detailing request — ${firstName} ${lastName}`;
+    const fullName = `${firstName} ${lastName}`;
+    const serviceInterestLabel = getServiceInterestLabel(lang, serviceInterest);
+    const subject = getSubject(lang, serviceInterest, fullName);
 
     const text =
       lang === "fr"
         ? [
-            "Nouvelle demande d’esthétique",
-            "-----------------------------",
-            `Nom: ${firstName} ${lastName}`,
+            "Nouvelle demande de service",
+            "---------------------------",
+            `Nom: ${fullName}`,
+            `Intéressé par: ${serviceInterestLabel}`,
             `Méthode de contact préférée: ${
               preferredContact === "Phone" ? "Téléphone" : "Courriel"
             }`,
@@ -65,16 +122,17 @@ export async function POST(req) {
             `Téléphone: ${phone || "(non fourni)"}`,
             `Marque du véhicule: ${carBrand || "(non fournie)"}`,
             `Modèle du véhicule: ${carModel || "(non fourni)"}`,
-            `Plus d’un véhicule: ${moreThanOneCar === "Yes" ? "Oui" : "Non"}`,
+            `Plus d'un véhicule: ${moreThanOneCar === "Yes" ? "Oui" : "Non"}`,
             "",
-            `Commentaires / spécifications:`,
+            "Commentaires / spécifications:",
             message,
             "",
           ].join("\n")
         : [
-            "New Detailing Request",
-            "---------------------",
-            `Name: ${firstName} ${lastName}`,
+            "New Service Request",
+            "-------------------",
+            `Name: ${fullName}`,
+            `Interested in: ${serviceInterestLabel}`,
             `Preferred contact: ${preferredContact}`,
             `Email: ${email}`,
             `Phone: ${phone || "(not provided)"}`,
@@ -82,7 +140,7 @@ export async function POST(req) {
             `Car model: ${carModel || "(not provided)"}`,
             `More than one car: ${moreThanOneCar}`,
             "",
-            `Comments / specifications:`,
+            "Comments / specifications:",
             message,
             "",
           ].join("\n");

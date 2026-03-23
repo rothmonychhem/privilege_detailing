@@ -16,7 +16,7 @@ export default function LanguageToggle() {
   return (
     <Link
       href={href}
-      className="ml-2 inline-flex items-center justify-center rounded-xl border border-zinc-700 px-3 py-1.5 hover:bg-zinc-900 transition"
+      className="ml-2 inline-flex items-center justify-center rounded-xl border border-white/30 px-3 py-1.5 text-white hover:bg-white/10 transition"
     >
       {label}
     </Link>

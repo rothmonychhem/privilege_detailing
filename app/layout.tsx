@@ -17,9 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-zinc-950 text-zinc-100">
-        <header className="sticky top-0 z-50 bg-zinc-950/80 backdrop-blur border-b border-zinc-800">
+        <header className="sticky top-0 z-50 border-b border-red-400/30 bg-red-500">
           <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
-            <Link href="/" className="font-semibold tracking-tight">
+            <Link href="/" className="font-semibold tracking-tight text-white">
               Privilege Auto Detailing
             </Link>
 

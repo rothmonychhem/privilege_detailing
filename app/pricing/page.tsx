@@ -1,3 +1,4 @@
+import { Droplets, Wrench } from "lucide-react";
 import Link from "next/link";
 
 const detailingServices = [
@@ -126,44 +127,9 @@ export default function PricingPage() {
             Mobile Services
           </p>
 
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">
+          <h1 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
             Detailing & Mechanic Pricing
           </h1>
-
-          <p className="mt-4 max-w-3xl leading-relaxed text-zinc-300">
-            Clear pricing for mobile detailing packages and mechanic services.
-            Choose the service you need and book directly from the section that
-            fits you best.
-          </p>
-
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
-            <IntroCard
-              eyebrow="Detailing"
-              title="Packages with clear inclusions"
-              body="Each package shows the full service list so it is easy to compare what is included and what is not."
-            />
-            <IntroCard
-              eyebrow="Mechanic"
-              title="Mobile maintenance & diagnostics"
-              body="Oil changes, inspections, brakes, suspension, and troubleshooting at your location."
-            />
-          </div>
-
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center rounded-2xl bg-red-500 px-5 py-3 text-sm font-medium text-white transition hover:bg-red-600"
-            >
-              Take RDV now
-            </Link>
-
-            <Link
-              href="/"
-              className="inline-flex items-center justify-center rounded-2xl border border-zinc-700 px-5 py-3 text-sm font-medium text-zinc-100 transition hover:bg-zinc-900"
-            >
-              Back to home
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -174,13 +140,19 @@ export default function PricingPage() {
           body="Unavailable services are crossed out in red so the package differences are obvious at a glance."
         />
 
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
+        <div className="relative mt-6 overflow-hidden rounded-[2rem] border border-zinc-800/70 bg-zinc-900/25 p-6 md:p-8">
+          <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+            <Droplets className="absolute -left-10 top-6 h-40 w-40 text-red-500/8" />
+            <Droplets className="absolute right-6 bottom-4 h-56 w-56 text-white/4" />
+          </div>
+
+          <div className="relative grid gap-6 md:grid-cols-3">
           {detailingPackages.map((pkg) => (
             <article
               key={pkg.name}
-              className="flex h-full flex-col rounded-3xl border border-zinc-800 bg-zinc-900/50 p-6"
+              className="flex h-full flex-col rounded-3xl border border-zinc-800 bg-zinc-900/50 p-6 text-center"
             >
-              <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center justify-center gap-4">
                 <h2 className="text-2xl font-semibold tracking-tight">
                   {pkg.name}
                 </h2>
@@ -202,7 +174,16 @@ export default function PricingPage() {
                           : "text-zinc-500 line-through decoration-red-500 decoration-2"
                       }
                     >
-                      {service}
+                      {included ? (
+                        <span>
+                          <span className="mr-2 font-semibold text-emerald-400">
+                            ✓
+                          </span>
+                          {service}
+                        </span>
+                      ) : (
+                        service
+                      )}
                     </li>
                   );
                 })}
@@ -212,10 +193,12 @@ export default function PricingPage() {
                 {pkg.prices.map((price) => (
                   <div
                     key={price.label}
-                    className="flex items-center justify-between rounded-2xl border border-zinc-800 bg-zinc-950/80 px-4 py-3"
+                    className="rounded-2xl border border-zinc-800 bg-zinc-950/80 px-4 py-4"
                   >
-                    <span className="text-zinc-300">{price.label}</span>
-                    <span className="font-semibold text-white">{price.value}</span>
+                    <div className="text-sm text-zinc-400">{price.label}</div>
+                    <div className="mt-1 text-3xl font-bold tracking-tight text-white">
+                      {price.value}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -228,12 +211,15 @@ export default function PricingPage() {
               </Link>
             </article>
           ))}
+          </div>
         </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-10">
         <div className="rounded-3xl border border-zinc-800 bg-zinc-900/50 p-6 md:p-8">
-          <h2 className="text-2xl font-semibold tracking-tight">Add-ons</h2>
+          <h2 className="text-center text-2xl font-semibold tracking-tight">
+            Add-ons
+          </h2>
 
           <div className="mt-6 grid gap-3 md:grid-cols-2">
             {addons.map((addon) => (
@@ -259,42 +245,49 @@ export default function PricingPage() {
           body="A separate mechanic section makes it clear that you can book maintenance, inspection, and diagnosis in addition to detailing."
         />
 
-        <div className="mt-6 grid gap-6 md:grid-cols-2">
-          {mechanicHighlights.map((item) => (
-            <article
-              key={item.title}
-              className="rounded-3xl border border-zinc-800 bg-zinc-900/50 p-6"
-            >
-              <h3 className="text-2xl font-semibold tracking-tight text-white">
-                {item.title}
-              </h3>
-              <div className="mt-4 h-px w-24 bg-red-500" />
-              <ul className="mt-5 grid gap-3 text-zinc-300">
-                {item.lines.map((line) => (
-                  <li key={line}>{line}</li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
+        <div className="relative mt-6 overflow-hidden rounded-[2rem] border border-zinc-800/70 bg-zinc-900/25 p-6 md:p-8">
+          <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+            <Wrench className="absolute -right-8 top-8 h-44 w-44 rotate-[18deg] text-red-500/8" />
+            <Wrench className="absolute left-4 bottom-6 h-52 w-52 -rotate-[16deg] text-white/4" />
+          </div>
 
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
-          {mechanicCategories.map((category) => (
-            <article
-              key={category.title}
-              className="rounded-3xl border border-zinc-800 bg-zinc-900/50 p-6"
-            >
-              <h3 className="text-2xl font-semibold tracking-tight text-white">
-                {category.title}
-              </h3>
-              <div className="mt-4 h-px w-20 bg-red-500" />
-              <ul className="mt-5 space-y-3 text-sm text-zinc-300">
-                {category.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </article>
-          ))}
+          <div className="relative grid gap-6 md:grid-cols-2">
+            {mechanicHighlights.map((item) => (
+              <article
+                key={item.title}
+                className="rounded-3xl border border-zinc-800 bg-zinc-900/50 p-6 text-center"
+              >
+                <h3 className="text-2xl font-semibold tracking-tight text-white">
+                  {item.title}
+                </h3>
+                <div className="mx-auto mt-4 h-px w-24 bg-red-500" />
+                <ul className="mt-5 grid gap-3 text-zinc-300">
+                  {item.lines.map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+
+          <div className="relative mt-6 grid gap-6 md:grid-cols-3">
+            {mechanicCategories.map((category) => (
+              <article
+                key={category.title}
+                className="rounded-3xl border border-zinc-800 bg-zinc-900/50 p-6 text-center"
+              >
+                <h3 className="text-2xl font-semibold tracking-tight text-white">
+                  {category.title}
+                </h3>
+                <div className="mx-auto mt-4 h-px w-20 bg-red-500" />
+                <ul className="mt-5 space-y-3 text-sm text-zinc-300">
+                  {category.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -321,26 +314,6 @@ export default function PricingPage() {
   );
 }
 
-function IntroCard({
-  eyebrow,
-  title,
-  body,
-}: {
-  eyebrow: string;
-  title: string;
-  body: string;
-}) {
-  return (
-    <div className="rounded-3xl border border-zinc-800 bg-zinc-900/45 p-6">
-      <div className="text-sm font-medium uppercase tracking-[0.2em] text-red-400">
-        {eyebrow}
-      </div>
-      <h2 className="mt-3 text-2xl font-semibold tracking-tight">{title}</h2>
-      <p className="mt-3 text-sm leading-relaxed text-zinc-300">{body}</p>
-    </div>
-  );
-}
-
 function SectionHeader({
   eyebrow,
   title,
@@ -352,7 +325,7 @@ function SectionHeader({
 }) {
   return (
     <div className="max-w-3xl">
-      <div className="text-sm font-medium uppercase tracking-[0.2em] text-red-400">
+      <div className="text-base font-semibold uppercase tracking-[0.28em] text-red-400 md:text-lg">
         {eyebrow}
       </div>
       <h2 className="mt-3 text-3xl font-semibold tracking-tight">{title}</h2>

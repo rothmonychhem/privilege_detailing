@@ -116,10 +116,7 @@ export default function ContactFR() {
             description="Dites-nous le type de service souhaité et votre méthode de contact préférée."
           >
             <div className="grid gap-6 md:grid-cols-2">
-              <Field
-                label="Intéressé par"
-                hint="Choisissez le service principal qui vous intéresse."
-              >
+              <Field label="Intéressé par">
                 <select name="serviceInterest" required className="input">
                   <option value="">Choisir...</option>
                   <option value="detailing">Esthétique</option>

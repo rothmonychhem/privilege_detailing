@@ -1,3 +1,4 @@
+import { Droplets, Wrench } from "lucide-react";
 import Link from "next/link";
 
 const servicesEsthetique = [
@@ -126,44 +127,9 @@ export default function PricingFRPage() {
             Services mobiles
           </p>
 
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">
+          <h1 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
             Esthétique & mécanique
           </h1>
-
-          <p className="mt-4 max-w-3xl leading-relaxed text-zinc-300">
-            Des prix clairs pour les forfaits d&apos;esthétique mobile et les
-            services mécaniques. Choisissez la section qui vous convient et
-            prenez rendez-vous rapidement.
-          </p>
-
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
-            <IntroCard
-              eyebrow="Esthétique"
-              title="Forfaits faciles à comparer"
-              body="Chaque forfait affiche toute la liste des services pour voir rapidement ce qui est inclus ou non."
-            />
-            <IntroCard
-              eyebrow="Mécanique"
-              title="Entretien et diagnostic à domicile"
-              body="Changements d'huile, inspections, freins, suspension et diagnostic directement chez vous."
-            />
-          </div>
-
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link
-              href="/fr/contact"
-              className="inline-flex items-center justify-center rounded-2xl bg-red-500 px-5 py-3 text-sm font-medium text-white transition hover:bg-red-600"
-            >
-              Prendre rendez-vous
-            </Link>
-
-            <Link
-              href="/fr"
-              className="inline-flex items-center justify-center rounded-2xl border border-zinc-700 px-5 py-3 text-sm font-medium text-zinc-100 transition hover:bg-zinc-900"
-            >
-              Retour à l&apos;accueil
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -174,66 +140,84 @@ export default function PricingFRPage() {
           body="Les services non inclus sont barrés en rouge pour rendre les différences entre forfaits beaucoup plus évidentes."
         />
 
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
-          {forfaitsEsthetique.map((pkg) => (
-            <article
-              key={pkg.name}
-              className="flex h-full flex-col rounded-3xl border border-zinc-800 bg-zinc-900/50 p-6"
-            >
-              <div className="flex items-center justify-between gap-4">
-                <h2 className="text-2xl font-semibold tracking-tight">
-                  {pkg.name}
-                </h2>
-                <span className="rounded-full border border-red-500/20 bg-red-500/10 px-3 py-1 text-xs font-medium text-red-400">
-                  Forfait
-                </span>
-              </div>
+        <div className="relative mt-6 overflow-hidden rounded-[2rem] border border-zinc-800/70 bg-zinc-900/25 p-6 md:p-8">
+          <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+            <Droplets className="absolute -left-10 top-6 h-40 w-40 text-red-500/8" />
+            <Droplets className="absolute right-6 bottom-4 h-56 w-56 text-white/4" />
+          </div>
 
-              <ul className="mt-5 grid gap-2 text-sm">
-                {servicesEsthetique.map((service) => {
-                  const included = pkg.included.includes(service);
-
-                  return (
-                    <li
-                      key={service}
-                      className={
-                        included
-                          ? "text-zinc-200"
-                          : "text-zinc-500 line-through decoration-red-500 decoration-2"
-                      }
-                    >
-                      {service}
-                    </li>
-                  );
-                })}
-              </ul>
-
-              <div className="mt-6 space-y-3 border-t border-zinc-800 pt-5">
-                {pkg.prices.map((price) => (
-                  <div
-                    key={price.label}
-                    className="flex items-center justify-between rounded-2xl border border-zinc-800 bg-zinc-950/80 px-4 py-3"
-                  >
-                    <span className="text-zinc-300">{price.label}</span>
-                    <span className="font-semibold text-white">{price.value}</span>
-                  </div>
-                ))}
-              </div>
-
-              <Link
-                href="/fr/contact"
-                className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-red-500 px-5 py-3 text-sm font-medium text-white transition hover:bg-red-600"
+          <div className="relative grid gap-6 md:grid-cols-3">
+            {forfaitsEsthetique.map((pkg) => (
+              <article
+                key={pkg.name}
+                className="flex h-full flex-col rounded-3xl border border-zinc-800 bg-zinc-900/50 p-6 text-center"
               >
-                Réserver ce forfait
-              </Link>
-            </article>
-          ))}
+                <div className="flex items-center justify-center gap-4">
+                  <h2 className="text-2xl font-semibold tracking-tight">
+                    {pkg.name}
+                  </h2>
+                  <span className="rounded-full border border-red-500/20 bg-red-500/10 px-3 py-1 text-xs font-medium text-red-400">
+                    Forfait
+                  </span>
+                </div>
+
+                <ul className="mt-5 grid gap-2 text-sm">
+                  {servicesEsthetique.map((service) => {
+                    const included = pkg.included.includes(service);
+
+                    return (
+                      <li
+                        key={service}
+                        className={
+                          included
+                            ? "text-zinc-200"
+                            : "text-zinc-500 line-through decoration-red-500 decoration-2"
+                        }
+                      >
+                        {included ? (
+                          <span>
+                            <span className="mr-2 font-semibold text-emerald-400">
+                              ✓
+                            </span>
+                            {service}
+                          </span>
+                        ) : (
+                          service
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+
+                <div className="mt-6 space-y-3 border-t border-zinc-800 pt-5">
+                  {pkg.prices.map((price) => (
+                    <div
+                      key={price.label}
+                      className="rounded-2xl border border-zinc-800 bg-zinc-950/80 px-4 py-4"
+                    >
+                      <div className="text-sm text-zinc-400">{price.label}</div>
+                      <div className="mt-1 text-3xl font-bold tracking-tight text-white">
+                        {price.value}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <Link
+                  href="/fr/contact"
+                  className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-red-500 px-5 py-3 text-sm font-medium text-white transition hover:bg-red-600"
+                >
+                  Réserver ce forfait
+                </Link>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-10">
         <div className="rounded-3xl border border-zinc-800 bg-zinc-900/50 p-6 md:p-8">
-          <h2 className="text-2xl font-semibold tracking-tight">
+          <h2 className="text-center text-2xl font-semibold tracking-tight">
             Options ajoutées
           </h2>
 
@@ -261,42 +245,49 @@ export default function PricingFRPage() {
           body="Une section dédiée rend plus évident que vous pouvez réserver de la mécanique en plus de l'esthétique."
         />
 
-        <div className="mt-6 grid gap-6 md:grid-cols-2">
-          {mecaniqueHighlights.map((item) => (
-            <article
-              key={item.title}
-              className="rounded-3xl border border-zinc-800 bg-zinc-900/50 p-6"
-            >
-              <h3 className="text-2xl font-semibold tracking-tight text-white">
-                {item.title}
-              </h3>
-              <div className="mt-4 h-px w-24 bg-red-500" />
-              <ul className="mt-5 grid gap-3 text-zinc-300">
-                {item.lines.map((line) => (
-                  <li key={line}>{line}</li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
+        <div className="relative mt-6 overflow-hidden rounded-[2rem] border border-zinc-800/70 bg-zinc-900/25 p-6 md:p-8">
+          <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+            <Wrench className="absolute -right-8 top-8 h-44 w-44 rotate-[18deg] text-red-500/8" />
+            <Wrench className="absolute left-4 bottom-6 h-52 w-52 -rotate-[16deg] text-white/4" />
+          </div>
 
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
-          {categoriesMecaniques.map((category) => (
-            <article
-              key={category.title}
-              className="rounded-3xl border border-zinc-800 bg-zinc-900/50 p-6"
-            >
-              <h3 className="text-2xl font-semibold tracking-tight text-white">
-                {category.title}
-              </h3>
-              <div className="mt-4 h-px w-20 bg-red-500" />
-              <ul className="mt-5 space-y-3 text-sm text-zinc-300">
-                {category.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </article>
-          ))}
+          <div className="relative grid gap-6 md:grid-cols-2">
+            {mecaniqueHighlights.map((item) => (
+              <article
+                key={item.title}
+                className="rounded-3xl border border-zinc-800 bg-zinc-900/50 p-6 text-center"
+              >
+                <h3 className="text-2xl font-semibold tracking-tight text-white">
+                  {item.title}
+                </h3>
+                <div className="mx-auto mt-4 h-px w-24 bg-red-500" />
+                <ul className="mt-5 grid gap-3 text-zinc-300">
+                  {item.lines.map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+
+          <div className="relative mt-6 grid gap-6 md:grid-cols-3">
+            {categoriesMecaniques.map((category) => (
+              <article
+                key={category.title}
+                className="rounded-3xl border border-zinc-800 bg-zinc-900/50 p-6 text-center"
+              >
+                <h3 className="text-2xl font-semibold tracking-tight text-white">
+                  {category.title}
+                </h3>
+                <div className="mx-auto mt-4 h-px w-20 bg-red-500" />
+                <ul className="mt-5 space-y-3 text-sm text-zinc-300">
+                  {category.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -323,26 +314,6 @@ export default function PricingFRPage() {
   );
 }
 
-function IntroCard({
-  eyebrow,
-  title,
-  body,
-}: {
-  eyebrow: string;
-  title: string;
-  body: string;
-}) {
-  return (
-    <div className="rounded-3xl border border-zinc-800 bg-zinc-900/45 p-6">
-      <div className="text-sm font-medium uppercase tracking-[0.2em] text-red-400">
-        {eyebrow}
-      </div>
-      <h2 className="mt-3 text-2xl font-semibold tracking-tight">{title}</h2>
-      <p className="mt-3 text-sm leading-relaxed text-zinc-300">{body}</p>
-    </div>
-  );
-}
-
 function SectionHeader({
   eyebrow,
   title,
@@ -354,7 +325,7 @@ function SectionHeader({
 }) {
   return (
     <div className="max-w-3xl">
-      <div className="text-sm font-medium uppercase tracking-[0.2em] text-red-400">
+      <div className="text-base font-semibold uppercase tracking-[0.28em] text-red-400 md:text-lg">
         {eyebrow}
       </div>
       <h2 className="mt-3 text-3xl font-semibold tracking-tight">{title}</h2>

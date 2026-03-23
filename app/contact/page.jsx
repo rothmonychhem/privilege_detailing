@@ -116,10 +116,7 @@ export default function ContactPage() {
             description="Tell us what kind of service you need and how you want us to follow up."
           >
             <div className="grid gap-6 md:grid-cols-2">
-              <Field
-                label="Interested in"
-                hint="Choose the main service you want help with."
-              >
+              <Field label="Interested in">
                 <select name="serviceInterest" required className="input">
                   <option value="">Choose...</option>
                   <option value="detailing">Detailing</option>

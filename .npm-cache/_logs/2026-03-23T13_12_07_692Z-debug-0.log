@@ -1,0 +1,35 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.9.0
+2 info using node@v24.14.0
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\rothm\src\privilege_detailing\.npmrc
+5 silly config load:file:C:\Users\rothm\.npmrc
+6 silly config load:file:C:\Users\rothm\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm outdated
+8 verbose argv "outdated" "--cache" ".npm-cache"
+9 verbose logfile logs-max:10 dir:C:\Users\rothm\src\privilege_detailing\.npm-cache\_logs\2026-03-23T13_12_07_692Z-
+10 verbose logfile C:\Users\rothm\src\privilege_detailing\.npm-cache\_logs\2026-03-23T13_12_07_692Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 http fetch GET 200 https://registry.npmjs.org/eslint 224ms (cache revalidated)
+14 http fetch GET 200 https://registry.npmjs.org/react-dom 268ms (cache revalidated)
+15 http fetch GET 200 https://registry.npmjs.org/tailwindcss 285ms (cache revalidated)
+16 http fetch GET 200 https://registry.npmjs.org/next 391ms (cache revalidated)
+17 http fetch GET 200 https://registry.npmjs.org/resend 644ms (cache revalidated)
+18 http fetch GET 200 https://registry.npmjs.org/postcss 640ms (cache revalidated)
+19 http fetch GET 200 https://registry.npmjs.org/autoprefixer 652ms (cache revalidated)
+20 http fetch GET 200 https://registry.npmjs.org/@types%2freact 659ms (cache revalidated)
+21 http fetch GET 200 https://registry.npmjs.org/@types%2fnode 676ms (cache revalidated)
+22 http fetch GET 200 https://registry.npmjs.org/@vercel%2fspeed-insights 705ms (cache revalidated)
+23 http fetch GET 200 https://registry.npmjs.org/react 706ms (cache revalidated)
+24 http fetch GET 200 https://registry.npmjs.org/@tailwindcss%2fpostcss 716ms (cache revalidated)
+25 http fetch GET 200 https://registry.npmjs.org/eslint-config-next 724ms (cache revalidated)
+26 http fetch GET 200 https://registry.npmjs.org/typescript 769ms (cache revalidated)
+27 http fetch GET 200 https://registry.npmjs.org/lucide-react 858ms (cache revalidated)
+28 http fetch GET 200 https://registry.npmjs.org/@types%2freact-dom 856ms (cache revalidated)
+29 verbose cwd C:\Users\rothm\src\privilege_detailing
+30 verbose os Windows_NT 10.0.26200
+31 verbose node v24.14.0
+32 verbose npm  v11.9.0
+33 verbose exit 1
+34 verbose code 1

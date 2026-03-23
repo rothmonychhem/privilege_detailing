@@ -1,173 +1,245 @@
+import { ArrowRight, Droplets, Wrench } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import { Zap, DollarSign, ShieldCheck } from "lucide-react";
+import MechanicalSlideshow from "../components/MechanicalSlideshow";
 import ServiceSlideshow from "../components/ServiceSlideshow";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-zinc-950 text-zinc-100">
-      {/* HERO */}
-      <section className="mx-auto max-w-6xl px-4 pt-14 pb-10">
-        <div className="grid gap-8 md:grid-cols-2 md:items-center">
-          {/* Left */}
-          <div>
-            <p className="text-sm text-zinc-400">
-              Mobile Mechanic & Detailing • Montreal • Brossard • Longeuil • Laval • Boucherville
-            </p>
+      <section className="mx-auto max-w-6xl px-4 pt-14 pb-12">
+        <div className="relative overflow-hidden rounded-[2rem] border border-zinc-800 bg-zinc-900/45 p-8 md:p-10">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(239,68,68,0.14),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.05),transparent_24%)]"
+          />
 
-            <h1 className="mt-3 text-4xl md:text-5xl font-semibold tracking-tight">
-              Quick, affordable, reliable detailing and mechanical services — right at your doorstep.
-            </h1>
-
-            <p className="mt-4 text-zinc-300 leading-relaxed">
-              We come to you. From daily drivers to SUVs and luxury vehicles, we
-              deliver a clean you can feel — fast booking, transparent pricing,
-              and professional results.
-            </p>
-
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium bg-white text-zinc-900 hover:bg-zinc-200 transition"
-                >
-                  Contact us
-                </Link>
-
-                <Link
-                  href="/pricing"
-                  className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium border border-zinc-700 text-zinc-100 hover:bg-zinc-900 transition"
-                >
-                  View Services and Prices
-                </Link>
-              </div>
-
-            {/* ICON CARDS */}
-            <div className="mt-8 grid gap-4 sm:grid-cols-3 text-sm">
-              <FeatureCard
-                title="Quick"
-                subtitle="Fast turnaround"
-                icon={<Zap className="h-5 w-5 text-yellow-400" />}
-              />
-              <FeatureCard
-                title="Affordable"
-                subtitle="Fair pricing"
-                icon={<DollarSign className="h-5 w-5 text-green-400" />}
-              />
-              <FeatureCard
-                title="Reliable"
-                subtitle="On-time service"
-                icon={<ShieldCheck className="h-5 w-5 text-blue-400" />}
+          <div className="relative mx-auto max-w-3xl text-center">
+            <div className="flex justify-center">
+              <Image
+                src="/logo.JPG"
+                alt="EG Auto Pro"
+                width={420}
+                height={210}
+                className="h-32 w-auto object-contain md:h-40"
+                priority
               />
             </div>
-          </div>
 
-          {/* Right */}
-          <div className="rounded-3xl border border-zinc-800 bg-zinc-900/40 p-6">
-            <div className="rounded-2xl bg-zinc-950 border border-zinc-800 p-6">
-              <div className="text-sm text-zinc-400">On-call service</div>
-              <div className="mt-2 text-2xl font-semibold tracking-tight">
-                Interior & Exterior packages
-              </div>
-              <div className="mt-3 text-zinc-300">
-                We service sedans, coupes, SUVs, trucks, and more.
-              </div>
+            <p className="text-sm uppercase tracking-[0.26em] text-red-400">
+              Mobile Mechanic & Detailing
+            </p>
 
-              <div className="mt-6 grid gap-3">
-                <ProofPoint text="Laval + surrounding areas" />
-                <ProofPoint text="Greater Montréal region" />
-                <ProofPoint text="Flexible scheduling" />
-              </div>
+            <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm text-zinc-300">
+              <LocationChip text="Montreal" />
+              <LocationChip text="Brossard" />
+              <LocationChip text="Longueuil" />
+              <LocationChip text="Laval" />
+              <LocationChip text="Boucherville" />
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* SLIDESHOW */}
+      <section className="mx-auto max-w-6xl px-4 pb-12">
+        <div className="grid gap-4 md:grid-cols-2">
+          <ServicePathCard
+            eyebrow="Detailing"
+            title="Mobile detailing that starts broad and gets tailored when you need it"
+            body="A cleaner-looking vehicle, straightforward package options, and professional on-site service."
+            icon={<Droplets className="h-6 w-6 text-red-400" />}
+            href="/pricing#detailing"
+            cta="See detailing pricing"
+          />
+          <ServicePathCard
+            eyebrow="Mechanic"
+            title="Mobile mechanic help for the maintenance and checks people ask for most"
+            body="Routine service, inspections, and diagnostics without sending you through a long process first."
+            icon={<Wrench className="h-6 w-6 text-red-400" />}
+            href="/pricing#mechanic"
+            cta="Explore mechanic pricing"
+          />
+        </div>
+      </section>
+
       <ServiceSlideshow />
+      <MechanicalSlideshow />
 
-      {/* SERVICES */}
-      <section id="services" className="mx-auto max-w-6xl px-4 py-10">
-        <h2 className="text-2xl font-semibold tracking-tight">Services</h2>
-        <p className="mt-2 text-zinc-400">
-          Choose a package or request a custom quote.
-        </p>
-
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          <ServiceCard
-            title="Interior Refresh"
-            points={["Vacuum + wipe-down", "Windows", "Light stain treatment"]}
+      <section className="mx-auto max-w-6xl px-4 py-10">
+        <div className="grid gap-4 md:grid-cols-3">
+          <FocusCard
+            title="Detailing packages"
+            body="Simple package structure with room to move from basic care to a more complete finish."
+            linkText="Go to pricing"
+            href="/pricing#detailing"
           />
-          <ServiceCard
-            title="Exterior Clean"
-            points={["Hand wash", "Wheels + tires", "Dry + shine"]}
+          <FocusCard
+            title="Mechanic support"
+            body="Oil changes, inspections, brakes, suspension, and diagnostics presented in a more direct way."
+            linkText="See services"
+            href="/pricing#mechanic"
           />
-          <ServiceCard
-            title="Full Detail"
-            points={["Interior deep clean", "Exterior wash", "Premium finish"]}
-          />
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="mx-auto max-w-6xl px-4 pb-16">
-        <div className="rounded-3xl border border-zinc-800 bg-white text-zinc-900 p-8 md:p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div>
-            <h3 className="text-2xl font-semibold tracking-tight">Ready to book?</h3>
-            <p className="mt-2 text-zinc-700">
-              Tell us your vehicle and preferred contact method. We’ll reply fast.
-            </p>
-          </div>
-
-          <Link
+          <FocusCard
+            title="Custom requests"
+            body="If you already know what you want, the contact form lets you point us to detailing, mechanic work, or both."
+            linkText="Start your request"
             href="/contact"
-            className="inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium bg-zinc-900 text-white hover:bg-zinc-800 transition"
-          >
-            Contact us
-          </Link>
+          />
         </div>
       </section>
-       <SpeedInsights/>
+
+      <section className="mx-auto max-w-6xl px-4 pb-12">
+        <div className="rounded-3xl border border-zinc-800 bg-zinc-900/40 p-8 md:p-10">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-sm uppercase tracking-[0.24em] text-red-400">
+              What We Believe
+            </p>
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white md:text-3xl">
+              We want good service to feel clear, respectful, and worth trusting
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-zinc-300 md:text-base">
+              Our goal is to deliver strong support and quality work without
+              making the process confusing. That means clear communication,
+              realistic recommendations, fair pricing, and service that respects
+              your time as much as your vehicle.
+            </p>
+
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+              <BeliefCard
+                title="Clear guidance"
+                body="We explain the next step simply, whether you need detailing, mechanic work, or both."
+              />
+              <BeliefCard
+                title="Reliable quality"
+                body="We focus on work that looks good, functions properly, and feels professional from start to finish."
+              />
+              <BeliefCard
+                title="Customer-first service"
+                body="We aim to make the experience easier, more flexible, and more helpful than the usual process."
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-16">
+        <div className="rounded-3xl border border-red-500/25 bg-red-500/10 p-8 text-zinc-100 md:p-10">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="text-sm uppercase tracking-[0.24em] text-red-300">
+              Ready When You Are
+            </div>
+            <h3 className="mt-3 text-3xl font-semibold tracking-tight text-white">
+              Book the next step only when you have enough information
+            </h3>
+            <p className="mt-3 text-zinc-300">
+              Start broad on the homepage, compare pricing when you want more,
+              then send the request when you are ready.
+            </p>
+
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-2xl bg-red-500 px-5 py-3 text-sm font-medium text-white transition hover:bg-red-600"
+              >
+                Contact us
+              </Link>
+              <Link
+                href="/pricing"
+                className="inline-flex items-center justify-center rounded-2xl border border-white/15 px-5 py-3 text-sm font-medium text-white transition hover:bg-white/10"
+              >
+                Browse pricing
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <SpeedInsights />
     </main>
   );
 }
 
-function FeatureCard({
+function ServicePathCard({
+  eyebrow,
   title,
-  subtitle,
+  body,
   icon,
+  href,
+  cta,
 }: {
+  eyebrow: string;
   title: string;
-  subtitle: string;
+  body: string;
   icon: React.ReactNode;
+  href: string;
+  cta: string;
 }) {
   return (
-    <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-4 flex items-start gap-3 hover:bg-zinc-900/70 transition">
-      <div className="p-2 rounded-xl bg-zinc-800">{icon}</div>
-      <div>
-        <div className="font-semibold">{title}</div>
-        <div className="text-zinc-400 mt-1">{subtitle}</div>
+    <div className="rounded-3xl border border-zinc-800 bg-zinc-900/40 p-6 text-center">
+      <div className="flex items-center justify-center gap-3">
+        <div className="rounded-2xl border border-red-500/20 bg-red-500/10 p-3">
+          {icon}
+        </div>
+        <div className="text-sm font-medium uppercase tracking-[0.22em] text-red-400">
+          {eyebrow}
+        </div>
       </div>
+      <h2 className="mt-5 text-2xl font-semibold tracking-tight text-white">
+        {title}
+      </h2>
+      <p className="mt-3 text-sm leading-relaxed text-zinc-300">{body}</p>
+      <Link
+        href={href}
+        className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-white transition hover:text-red-300"
+      >
+        {cta}
+        <ArrowRight className="h-4 w-4" />
+      </Link>
     </div>
   );
 }
 
-function ProofPoint({ text }: { text: string }) {
+function FocusCard({
+  title,
+  body,
+  linkText,
+  href,
+}: {
+  title: string;
+  body: string;
+  linkText: string;
+  href: string;
+}) {
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4 text-sm">
-      ✅ {text}
+    <div className="rounded-3xl border border-zinc-800 bg-zinc-900/40 p-6 text-center">
+      <h3 className="text-xl font-semibold tracking-tight text-white">{title}</h3>
+      <p className="mt-3 text-sm leading-relaxed text-zinc-300">{body}</p>
+      <Link
+        href={href}
+        className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-red-400 transition hover:text-red-300"
+      >
+        {linkText}
+        <ArrowRight className="h-4 w-4" />
+      </Link>
     </div>
   );
 }
 
-function ServiceCard({ title, points }: { title: string; points: string[] }) {
+function BeliefCard({ title, body }: { title: string; body: string }) {
   return (
-    <div className="rounded-3xl border border-zinc-800 bg-zinc-900/40 p-6">
-      <div className="font-semibold text-lg">{title}</div>
-      <ul className="mt-3 space-y-2 text-sm text-zinc-300">
-        {points.map((p) => (
-          <li key={p}>• {p}</li>
-        ))}
-      </ul>
+    <div className="rounded-3xl border border-zinc-800 bg-zinc-950/55 p-6 text-center">
+      <h3 className="text-lg font-semibold tracking-tight text-white">{title}</h3>
+      <p className="mt-3 text-sm leading-relaxed text-zinc-300">{body}</p>
+    </div>
+  );
+}
+
+function LocationChip({ text }: { text: string }) {
+  return (
+    <div className="rounded-full border border-zinc-800 bg-zinc-900/60 px-4 py-2">
+      {text}
     </div>
   );
 }

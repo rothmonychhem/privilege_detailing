@@ -5,7 +5,7 @@ export default function ThankYouPage() {
     <main className="mx-auto max-w-3xl px-4 py-16">
       <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-8">
         <h1 className="text-3xl font-semibold tracking-tight text-zinc-50">
-          Thank you for your interest in Privilege Auto Detailing.
+          Thank you for your interest in EG Auto Pro.
         </h1>
         <p className="mt-3 text-zinc-300 leading-relaxed">
           We’ve received your request and will contact you as soon as possible.

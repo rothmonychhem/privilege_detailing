@@ -43,14 +43,18 @@ export default function ContactPage() {
       </div>
 
       <div className="relative mx-auto max-w-4xl">
-        <h1 className="text-3xl font-semibold tracking-tight">
-          Contact Privilege Auto Detailing
+        <h1 className="text-center text-3xl font-semibold tracking-tight">
+          Contact EG Auto Pro
         </h1>
 
-        <p className="mt-3 max-w-2xl text-zinc-400">
+        <p className="mx-auto mt-3 max-w-3xl text-center text-zinc-400">
           Request a quote for mobile detailing or mechanic service in Laval and
           the Greater Montreal region.
         </p>
+
+        <div className="mx-auto mt-5 w-full rounded-2xl border border-red-500/25 bg-red-500/10 px-5 py-4 text-center text-sm text-zinc-200">
+          For now, home service appointments are available on weekends only.
+        </div>
 
         <form
           onSubmit={onSubmit}

@@ -1,4 +1,5 @@
 import { Droplets, Wrench } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const servicesEsthetique = [
@@ -133,7 +134,7 @@ export default function PricingFRPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-10">
+      <section id="detailing" className="mx-auto max-w-6xl scroll-mt-24 px-4 pb-10">
         <SectionHeader
           eyebrow="Esthétique"
           title="Comparer les forfaits"
@@ -142,9 +143,16 @@ export default function PricingFRPage() {
 
         <div className="relative mt-6 overflow-hidden rounded-[2rem] border border-zinc-800/70 bg-zinc-900/25 p-6 md:p-8">
           <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-            <Droplets className="absolute -left-10 top-6 h-40 w-40 text-red-500/8" />
-            <Droplets className="absolute right-6 bottom-4 h-56 w-56 text-white/4" />
+            <Image
+              src="/detail_back.jpg"
+              alt=""
+              fill
+              className="object-cover opacity-[0.15]"
+            />
+            <Droplets className="absolute -left-10 top-6 h-40 w-40 text-red-500/10" />
+            <Droplets className="absolute right-6 bottom-4 h-56 w-56 text-white/5" />
           </div>
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(9,9,11,0.18),rgba(9,9,11,0.42))]" />
 
           <div className="relative grid gap-6 md:grid-cols-3">
             {forfaitsEsthetique.map((pkg) => (
@@ -215,7 +223,7 @@ export default function PricingFRPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-10">
+      <section id="mechanic" className="mx-auto max-w-6xl scroll-mt-24 px-4 pb-10">
         <div className="rounded-3xl border border-zinc-800 bg-zinc-900/50 p-6 md:p-8">
           <h2 className="text-center text-2xl font-semibold tracking-tight">
             Options ajoutées
@@ -247,9 +255,16 @@ export default function PricingFRPage() {
 
         <div className="relative mt-6 overflow-hidden rounded-[2rem] border border-zinc-800/70 bg-zinc-900/25 p-6 md:p-8">
           <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-            <Wrench className="absolute -right-8 top-8 h-44 w-44 rotate-[18deg] text-red-500/8" />
-            <Wrench className="absolute left-4 bottom-6 h-52 w-52 -rotate-[16deg] text-white/4" />
+            <Image
+              src="/mec_back.jpg"
+              alt=""
+              fill
+              className="object-cover opacity-[0.15]"
+            />
+            <Wrench className="absolute -right-8 top-8 h-44 w-44 rotate-[18deg] text-red-500/10" />
+            <Wrench className="absolute left-4 bottom-6 h-52 w-52 -rotate-[16deg] text-white/5" />
           </div>
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(9,9,11,0.18),rgba(9,9,11,0.42))]" />
 
           <div className="relative grid gap-6 md:grid-cols-2">
             {mecaniqueHighlights.map((item) => (
@@ -328,7 +343,9 @@ function SectionHeader({
       <div className="text-base font-semibold uppercase tracking-[0.28em] text-red-400 md:text-lg">
         {eyebrow}
       </div>
-      <h2 className="mt-3 text-3xl font-semibold tracking-tight">{title}</h2>
+      <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-[1.75rem]">
+        {title}
+      </h2>
       <p className="mt-3 text-zinc-400">{body}</p>
     </div>
   );

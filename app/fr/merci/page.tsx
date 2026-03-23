@@ -6,7 +6,7 @@ export default function MerciPage() {
       <div className="mx-auto max-w-3xl">
         <div className="rounded-3xl border border-zinc-800 bg-zinc-900/40 p-8">
           <h1 className="text-3xl font-semibold tracking-tight">
-            Merci pour votre intérêt envers Privilege Auto Detailing.
+            Merci pour votre intérêt envers EG Auto Pro.
           </h1>
 
           <p className="mt-3 text-zinc-300 leading-relaxed">
